@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Dojo Activity Center";
+}
+@model List<ActivityE>
+
+
+<div class="border-bottom row justify-content-between p-4">
+    <h1>Dojo Activity Center</h1>
+    <div class="pt-3">
+        <p class="d-inline-block mr-4">Welcome, @ViewBag.User.Name!</p>
+        <a asp-action="Logout" asp-controller="Home">Logout</a>
+    </div>
+</div>
+<div class="p-4">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">Activity</th>
+                <th scope="col">Date and Time</th>
+                <th scope="col">Duration</th>
+                <th scope="col">Event Coordinator</th>
+                <th scope="col">No. of Participants</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var activity in Model)
+            {
+                <tr>
+                    <td><a href="/activity/@activity.ActivityId">@activity.Title</a></td>
+                    <td>@activity.Date.ToString("MM/dd") &#64 @activity.Time.ToString("h:mm tt")</td>
+                    <td>@activity.Duration @activity.DurationUnit</td>
+                    <td>@activity.Coordinator.Name</td>
+                    <td>@activity.Participants.Count</td>
+                    @if(activity.UserId == ViewBag.User.UserId)
+                    {
+                        <td><a href="/activity/@activity.ActivityId/delete">Delete</a></td>
+                    }
+                    else
+                    {
+                        @if(activity.Participants.Any(participant => participant.User == ViewBag.User))
+                        {
+                            <td><a href="/activity/@activity.ActivityId/leave">Leave</a></td>
+                        }
+                        else
+                        {
+                            <td><a href="/activity/@activity.ActivityId/join">Join</a></td>
+                        }
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <a asp-action="NewActivity" asp-controller="Home"><button type="submit" class="float-right btn btn-secondary">Add New Activity</button></a>
+</div>

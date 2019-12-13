@@ -1,0 +1,31 @@
+﻿@model User
+
+<form asp-action="Register" asp-controller="Home" method="POST" class="border col-5 p-3">
+    <h3 class="mb-4">Register</h3>
+    <div class="form-group row px-3">
+        <label asp-for="Name" class="m-0"></label>
+        <span asp-validation-for="Name" class="ml-2  text-danger"></span>
+        <input asp-for="Name" class="form-control">
+    </div>
+    <div class="form-group row px-3">
+        <label asp-for="Email" class="m-0"></label>
+        <span asp-validation-for="Email" class="ml-2  text-danger"></span>
+        <input asp-for="Email" class="form-control">
+    </div>
+    <div class="form-group row px-3">
+        <label asp-for="Password" class="m-0"></label>
+        <span asp-validation-for="Password" class="ml-2  text-danger"></span>
+        <input asp-for="Password" class="form-control">
+    </div>
+    <div class="row px-3">
+        <p>* Password must be at least 8 characters.</p>
+    </div>
+    <div class="form-group row px-3">
+        <label asp-for="ConfirmPW" class="m-0"></label>
+        <span asp-validation-for="ConfirmPW" class="ml-2  text-danger"></span>
+        <input asp-for="ConfirmPW" class="form-control">
+    </div>
+    <div class="row px-3 justify-content-end">
+        <button type="submit" class="btn btn-secondary">Register</button>
+    </div>
+</form>

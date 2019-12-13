@@ -1,0 +1,48 @@
+﻿@model ActivityE
+@{
+    ViewData["Title"] = "Activity";
+}
+
+
+<partial name="HeaderPartial"/>
+
+<div class="row justify-content-between pt-4 px-4">
+    <h1>@Model.Title</h1>
+    @if(Model.UserId == ViewBag.User.UserId)
+    {
+        <a href="/activity/@Model.ActivityId/delete" class="pt-2"><button class="btn btn-secondary">Delete</button></a>
+    }
+    else
+    {
+        @if(Model.Participants.Any(participant => participant.User == ViewBag.User))
+        {
+            <a href="/activity/@Model.ActivityId/viewleave" class="pt-2"><button class="btn btn-secondary">Leave</button></a>
+        }
+        else
+        {
+            <a href="/activity/@Model.ActivityId/viewjoin" class="pt-2"><button class="btn btn-secondary">Join</button></a>
+        }
+    }
+</div>
+<div class="row px-4">
+    <div class="px-4">
+        <div class="px-4 pt-3 row">
+            <h4>Event Coordinator:</h4>
+            <p class="px-4 pt-1 m-0">@Model.Coordinator.Name</p>
+        </div>
+        <div class="px-2 pt-3">
+            <h4>Description:</h4>
+            <p class="px-4 m-0">@Model.Description</p>
+        </div>
+        <div class="px-4 pt-3 row">
+            <h4>Participants:</h4>
+            <div class="w-100"></div>
+            <ul>
+                @foreach(var participant in Model.Participants)
+                {
+                    <p class="mb-1">@participant.User.Name</p>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
